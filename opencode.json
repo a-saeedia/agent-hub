@@ -1,0 +1,36 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "$comment": "Project-scoped agent split (Option 1). Overrides merge ON TOP of ~/.config/opencode/opencode.jsonc — providers (nvidia, openrouter, etc.) and permission rules come from the global config. Only the agent routing + project dir are overridden here. Press Tab in the TUI to switch between plan (Hermes) and build (Qwen).",
+
+  "data": { "directory": ".opencode" },
+
+  "default_agent": "build",
+
+  "agents": {
+    "build": {
+      "model": "aistudio/gemini-3.6-flash",
+      "maxTokens": 8192,
+      "reasoningEffort": "high"
+    },
+    "plan": {
+      "model": "aistudio/gemini-3.6-flash",
+      "maxTokens": 4096,
+      "reasoningEffort": "high"
+    }
+  },
+
+  "provider": {
+    "openrouter": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenRouter (free)",
+      "options": {
+        "baseURL": "https://openrouter.ai/api/v1",
+        "apiKey": "{env:OPENROUTER_API_KEY}"
+      },
+      "models": {
+        "nousresearch/hermes-3-llama-3.1-405b:free": { "name": "Hermes 3 405B (free)" },
+        "nousresearch/hermes-3-llama-3.1-70b:free": { "name": "Hermes 3 70B (free)" }
+      }
+    }
+  }
+}
